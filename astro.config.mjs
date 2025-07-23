@@ -8,6 +8,7 @@ export default defineConfig({
     sitemap(),
     tailwind(),
   ],
-  site: "https://your-website.com",
+  site: "https://ojoanalogo.github.io",
+  base: "/terminus-astro-template",
   compressHTML: true,
 });

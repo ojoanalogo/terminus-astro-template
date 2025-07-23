@@ -1,9 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import PostPreview from '../../components/PostPreview.astro';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { sortMDByDate } from '../../utils';
-
+import PostPreview from "../../components/PostPreview.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { sortMDByDate } from "../../utils";
 
 const allPosts = await getCollection("blog");
 const allPostsByDate = sortMDByDate(allPosts);
@@ -11,30 +10,25 @@ const allPostsByDate = sortMDByDate(allPosts);
 
 <BaseLayout title="Blog" navbarActiveItemID="blog">
   <section aria-label="Publicaciones de mi sitio">
-
-    <h1 class="text-xl font-bold mb-6 drop-shadow-sm">
-      📝 Publicaciones
-    </h1>
+    <h1 class="text-xl font-bold mb-6 drop-shadow-sm">📝 Blog posts</h1>
 
     {
       allPostsByDate.length === 0 ? (
-        <div class="text-center">
-          <h1 class="text-9xl font-bold mb-4">🏜️</h1>
-          <h1 class="text-9xl font-bold mb-4 text-cyan-800">404</h1>
-          <h3 class="text-2xl">
-            No hay publicaciones disponibles, regresa mañana
-          </h3>
+        <div class="flex items-center gap-4 mb-6">
+          <p class="text-4xl">🤔</p>
+          <div class="flex flex-col">
+            <h1 class="text-red-400 text-2xl font-bold">404</h1>
+            <p class="text-gray-400 text-xs">No blog posts available</p>
+          </div>
         </div>
       ) : (
-      <ul class="space-y-4 sm:space-y-2">
-        {
-          allPostsByDate.map((post) => (
+        <ul class="space-y-4 sm:space-y-2">
+          {allPostsByDate.map((post) => (
             <li class="flex flex-col gap-x-2 sm:flex-row">
               <PostPreview post={post} />
             </li>
-          ))
-        }
-    </ul>
+          ))}
+        </ul>
       )
     }
   </section>
