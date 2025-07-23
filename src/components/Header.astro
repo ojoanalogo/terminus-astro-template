@@ -1,0 +1,70 @@
+---
+const { navbarActiveItemID } = Astro.props;
+const activeClasses = ["text-white", "opacity-100"];
+
+const links: Array<{
+  title: string;
+  id?: string;
+  url?: string;
+  new?: boolean;
+  redirect?: string;
+}> = [
+  {
+    title: "index.html",
+    id: "home",
+    url: "/",
+  },
+  {
+    title: "blog.sql",
+    id: "blog",
+    url: "/blog",
+  },
+  {
+    title: "astro.build",
+    redirect: "https://astro.build",
+  },
+];
+---
+
+<header id="main-header" class="mb-8 px-6 mt-6">
+  <nav
+    id="navigation-menu"
+    aria-label="Main menu"
+    class="flex flex-col lg:flex-row justify-between items-start lg:items-center"
+  >
+    <span class="mb-4 lg:mb-0">
+      <a href="/" target="_self" class="text-white font-medium text-md">
+        terminus
+      </a>
+    </span>
+    <span class="flex flex-wrap gap-6 text-sm">
+      {
+        links.map((link) => {
+          return (
+            <a
+              href={link.redirect ? link.redirect : link.url}
+              target={link.redirect ? "_blank" : "_self"}
+              id={link.id}
+              class="text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-200"
+            >
+              {link.title}
+            </a>
+          );
+        })
+      }
+    </span>
+  </nav>
+</header>
+
+<script
+  define:vars={{
+    navbarActiveItemID,
+    activeClasses,
+  }}
+>
+  const activeItemElement = document.getElementById(navbarActiveItemID);
+
+  activeClasses.forEach((activeClass) => {
+    activeItemElement.classList.add(activeClass);
+  });
+</script>

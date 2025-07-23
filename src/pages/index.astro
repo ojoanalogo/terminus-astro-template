@@ -1,0 +1,252 @@
+---
+import { getCollection } from "astro:content";
+import PostPreview from "../components/PostPreview.astro";
+import SocialMediaIcons from "../components/SocialMediaIcons.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { sortMDByDate } from "../utils";
+
+const MAX_POSTS = 10;
+const allPosts = await getCollection("blog");
+const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS);
+
+const techStack: Record<string, string> = {
+  ts: "TypeScript",
+  python: "Python",
+  sql: "SQL",
+  gpt: "LLMs, GPT-3/4, Claude, etc.",
+  astro: "Astro",
+  tailwind: "Tailwind",
+  shadcn: "Shadcn",
+};
+
+const projects: Array<{
+  title: string;
+  description: string;
+  link: string;
+  icon: string;
+}> = [
+  {
+    title: "Sample Project",
+    description: "Example project showcasing features",
+    link: "https://github.com/yourusername/sample-project",
+    icon: "🚀",
+  },
+  {
+    title: "Another Project",
+    description: "Add your own projects here",
+    icon: "💻",
+    link: "",
+  },
+];
+---
+
+<BaseLayout navbarActiveItemID="home">
+  <main>
+    <section id="about" class="mt-6" aria-labelledby="about-heading">
+      <div
+        class="bg-black/30 border border-gray-600 rounded-lg font-mono text-sm p-6"
+        role="region"
+      >
+        <!-- Terminal header -->
+        <div class="flex items-center gap-2 mb-4 pb-3 border-b border-gray-600">
+          <div class="flex gap-2" role="img">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <span class="text-gray-400 text-xs ml-2"
+            >terminal - ssh guest@terminus</span
+          >
+        </div>
+
+        <!-- Content -->
+        <div class="text-xs">
+          <div class="space-y-2">
+            <div class="flex items-center gap-4 mb-4">
+              <p class="text-2xl">🚀</p>
+              <div class="flex flex-col">
+                <h1 class="text-primary text-xl">Astro Template</h1>
+                <p class="text-gray-400 text-xs">
+                  Ready-to-use Astro template for developers
+                </p>
+              </div>
+            </div>
+
+            <!-- Personal paragraph -->
+            <div class="bg-gray-500/10 rounded-lg p-3 mb-4">
+              <p class="text-gray-200 leading-relaxed">
+                Welcome to this website boilerplate! This is a modern, customizable template built with Astro. Replace this content with your own information, projects, and blog posts to create your personal or professional website.
+              </p>
+            </div>
+
+            <div class="border-b border-gray-600 w-full mb-2"></div>
+
+            <div class="flex">
+              <span class="text-gray-400 w-36 shrink-0">Location</span>
+              <span class="text-white">Your Location 🌍</span>
+            </div>
+
+            <div class="flex">
+              <span class="text-gray-400 w-36 shrink-0">Work</span>
+              <span class="text-white">
+                Your Job Title @
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-cyan-600 hover:underline focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  href="https://yourcompany.com"
+                  aria-label="Visit your company website"
+                  >yourcompany.com</a
+                >
+              </span>
+            </div>
+
+            <div class="flex">
+              <span class="text-gray-400 w-36 shrink-0">Interests</span>
+              <span class="text-white"
+                >Technology, programming, your interests here</span
+              >
+            </div>
+
+            <div class="flex">
+              <span class="text-gray-400 w-36 shrink-0">Contact</span>
+              <span class="text-white">
+                <a
+                  class="text-cyan-600 hover:underline focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  href="mailto:your.email@example.com"
+                  aria-label="Send email to your.email@example.com">your.email@example.com</a
+                >
+              </span>
+            </div>
+
+            <div class="flex items-center">
+              <span class="text-gray-400 w-36 shrink-0">Social</span>
+              <span class="text-white flex-1 min-w-0">
+                <SocialMediaIcons />
+              </span>
+            </div>
+
+            <div class="pt-2">
+              <div class="flex items-center">
+                <span class="text-gray-400 w-36 shrink-0">Tech</span>
+                <div class="flex flex-wrap gap-2" role="list" aria-label="Tech">
+                  {
+                    Object.keys(techStack).map((lang) => (
+                      <span
+                        class="text-gray-400 hover:text-cyan-600 transition-colors"
+                        title={techStack[lang]}
+                      >
+                        {lang}
+                      </span>
+                    ))
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-3 pt-2 border-t border-gray-700 text-gray-500 text-xs">
+          <span class="text-gray-400">$</span> cat about.txt
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="mt-2">
+      <div
+        class="bg-black/20 border border-gray-700 rounded font-mono text-sm text-gray-300 p-6"
+        role="region"
+        aria-label="Project showcase"
+      >
+        <h2 class="mb-4 text-sm font-bold text-gray-500">💻 project samples</h2>
+        <div class="space-y-2" role="list">
+          {
+            projects.map((project, index) => (
+              <div
+                class="group hover:bg-gray-800/50 p-1 rounded transition-colors"
+                role="listitem"
+              >
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:ring-offset-2 focus:ring-offset-gray-900 rounded"
+                    aria-label={`Visit ${project.title}: ${project.description}`}
+                  >
+                    <div class="flex items-start gap-2">
+                      <span
+                        class="text-gray-400 w-6 shrink-0"
+                        aria-hidden="true"
+                      >
+                        {String(index + 1).padStart(2, "0")}.
+                      </span>
+                      <span
+                        class="text-yellow-360 shrink-0"
+                        role="img"
+                        aria-label="Project icon"
+                      >
+                        {project.icon}
+                      </span>
+                      <div class="min-w-0 flex-1">
+                        <span class="text-white group-hover:text-cyan-300 font-semibold">
+                          {project.title}
+                        </span>
+                        <span class="text-gray-500 ml-2">
+                          → {project.description}
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <div
+                    class="flex items-start gap-2 opacity-60"
+                    aria-label={`${project.title}: ${project.description} (Coming soon)`}
+                  >
+                    <span class="text-gray-400 w-6 shrink-0" aria-hidden="true">
+                      {String(index + 1).padStart(2, "0")}.
+                    </span>
+                    <span
+                      class="text-yellow-360 shrink-0"
+                      role="img"
+                      aria-label="Project icon"
+                    >
+                      {project.icon}
+                    </span>
+                    <div class="min-w-0 flex-1">
+                      <span class="text-white font-semibold">
+                        {project.title}
+                      </span>
+                      <span class="text-gray-500 ml-2">
+                        → {project.description}
+                      </span>
+                      <span class="text-gray-600 ml-2">[coming soon]</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))
+          }
+        </div>
+        <div class="mt-3 pt-2 border-t border-gray-700 text-gray-500 text-xs">
+          <span class="text-gray-400">$</span> ls -la projects/ | total {
+            projects.length
+          }
+        </div>
+      </div>
+    </section>
+
+    <section id="blog" class="mt-8">
+      <h2 class="text-sm mb-6 font-semibold text-gray-500">✍️ latest posts</h2>
+      <ul class="space-y-6" role="list">
+        {
+          allPostsByDate.map((post) => (
+            <li class="flex flex-col gap-x-2 sm:flex-row" role="listitem">
+              <PostPreview post={post} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</BaseLayout>

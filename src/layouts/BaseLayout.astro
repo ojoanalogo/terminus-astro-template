@@ -1,0 +1,32 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+
+import { SITE_DESCRIPTION, SITE_TITLE } from "../config";
+
+const {
+  image,
+  title = SITE_TITLE,
+  description = SITE_DESCRIPTION,
+  navbarActiveItemID,
+} = Astro.props;
+---
+
+<!doctype html>
+<html
+  lang="es"
+  class="bg-background text-gray-400 selection:bg-cyan-700 selection:text-white"
+>
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
+  <body class="xl:w-[55rem] lg:w-4/5 w-full md:px-4 mx-auto font-sans">
+    <div>
+      <Header navbarActiveItemID={navbarActiveItemID} />
+      <main id="main" class="px-2 md:px-6 pb-12">
+        <slot />
+      </main>
+    </div>
+    <noise> </noise>
+  </body>
+</html>
