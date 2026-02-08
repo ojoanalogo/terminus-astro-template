@@ -1,12 +1,11 @@
 ---
-publishDate: 2025-07-23
+publishDate: 2023-07-29
 title: Hello world
-description: Terminus astro template
+description: Bla bla bla
 published: false
 heroImage: bluemarble.jpg
 ---
-# This is a sample blog entry
 
-## Hello
+# This is terminus
 
-Hello world. 
+Welcome

@@ -2,7 +2,7 @@
 
 > A minimalist Astro template for developers
 
-![Preview of template](./preview.png)
+![Preview of template](./.github/preview.png)
 
 ## ✨ Features
 

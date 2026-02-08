@@ -1,12 +1,13 @@
 ---
 import { getCollection, type CollectionEntry } from 'astro:content';
+import readingTime from 'reading-time';
 import type { BlogSchema } from '../../content/config';
 import PostLayout from '../../layouts/PostLayout.astro';
 import { getBlogImage } from '../../utils';
 
 export async function getStaticPaths() {
     const postEntries = await getCollection('blog');
-    return postEntries.map(entry => ( { 
+    return postEntries.map(entry => ( {
         params: { slug: entry.slug }, props: { entry },
     } ));
 }
@@ -19,6 +20,7 @@ const { entry } = Astro.props;
 const post : BlogSchema = entry.data;
 const { Content } = await entry.render();
 
+const stats = readingTime(entry.body || '');
 
 let heroImage;
 if (post.heroImage) {
@@ -27,12 +29,14 @@ if (post.heroImage) {
 
 ---
 
-<PostLayout 
-    title={post.title} 
-    description={post.description} 
-    publishDate={post.publishDate} 
+<PostLayout
+    title={post.title}
+    description={post.description}
+    publishDate={post.publishDate}
     updatedDate={post.updatedDate}
     heroImage={heroImage?.default}
+    readingTime={stats.text}
+    tags={post.tags}
 >
     <Content/>
 </PostLayout>
