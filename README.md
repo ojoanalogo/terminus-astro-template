@@ -4,6 +4,8 @@
 
 ![Preview of template](./.github/preview.png)
 
+Demo: https://ojoanalogo.github.io/terminus-astro-template/
+
 ## ✨ Features
 
 - 🚀 **Astro 5.x** - Fast, content-focused web framework
